@@ -69,7 +69,7 @@ int main(void){
 		}	
 	}
 	
-	//ZOOM DE DATOS
+	//NORMALIZACION DE DATOS
 	x = y = 0 ;
 	float z1[2] = {9.02,79.53};
 	float z2[2] = {0.000542,0.000221};
