@@ -47,23 +47,8 @@ while(i<=10){
 			y = 0;
 		}
 	}
-	
-/*	//IMPRESION DE DATOS
-	printf("\nDATOS INGRESADOS: \n\n");
-	x = y = 0 ; 	//ciclo while para imprimir los datos
-	while (x<n && y<=2){
 		
-		printf("%Lf | ", matrix1[x][y]);		//determino impresion con 2 valores decimales
-		y++;
-		if(y == 2){
-			x++;
-			y = 0;
-			printf("\n");
-		}	
-	}
-*/
-	
-	//ZOOM DE DATOS
+	//NORMALIZACION DE DATOS
 	x = y = 0 ;
 	float z[2] = {9.02,79.53};
 	while (x<=n && y<2){
@@ -79,7 +64,7 @@ while(i<=10){
 	
 	x = y = 0;
 	double s = 0;
-	while(x<=n && y<2*m){ //ciclo while para las sumatorias de potencias
+	while(x<=n && y<2*m){ //ciclo while genera las sumatorias de potencias
 		
 		xs[y] = xs[y] + pow(matrix1[x][0],y+1); //sumatoria de potencias de x
 //		printf("\nxs[%d] = %lf",y,xs[y]);
@@ -100,23 +85,9 @@ while(i<=10){
 //			printf("\n");
 		}
 	}
-	x = y = 0;
-
-/*	printf("\nVALORES DE SUMATORIA X\n\n");
-	for(x=0;x<2*m;x++){
-		printf(" %Lf |",xs[x]);
-	}
-	printf("\n\n");
-	
-	printf("\nVALORES DE SUMATORIA Y\n\n");
-	for(x=0;x<1+m;x++){
-		printf(" %Lf |",ys[x]);
-	}
-	printf("\n\n");
-*/
 	
 	x = y = 0;
-	while(x<m+1 && y<=m+2){ //ciclo while para la formula de sumatorias
+	while(x<m+1 && y<=m+2){ //ciclo while genera matriz de sumatorias
 		//aumenta el grado de la variable a medida que aumenta la fila
 		//crea la matriz del sistema de ecuaciones.
 		
@@ -199,7 +170,6 @@ while(i<=10){
 		ye[y] = ye[y] + pow(matrix1[y][0],x)*xi[x][j];
 		x++;
 		if(x == m+1){
-//			printf("\n x = %lf | y = %lf |ye[%d] = %lf",matrix1[y][0],matrix1[y][1],y,ye[y]);
 			y++;
 			x = 0;
 		}
