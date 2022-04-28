@@ -1,4 +1,4 @@
-// prueba regresion polinomial de segundo grado
+//CODIGO PARA REGRESION POLINOMIAL GRADOS 2 A 10.
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -13,7 +13,7 @@ int main(void){
 	
 while(i<=10){
 	
-	FILE * fp = fopen("data2.csv","r");
+	FILE * fp = fopen("data1e.csv","r");
 	if(!fp){ //si no abre el archivo.
 		printf("\n ERROR! \n\n No se puede abrir el archivo. \n");
 		return 0;
@@ -169,13 +169,13 @@ while(i<=10){
 		 }
 	
 		printf("\n y = ");
-		for(x=0;x<dL;x++) {
-			if(xi[x]>= 0){
+		for(x=0;x<m+1;x++) {
+			if(xi[x][j]>= 0){
 				printf("+");
 			}
-		  	printf(" %lf*x^%d ",xi[x],dL-1-x);
+		  	printf(" %lf*x^%d ",xi[x][j],x);
 		 }
-		printf("\n");
+	printf("\n");
 
 	//DETERMINAR EL ERROR
 	x = y = 0;
@@ -234,6 +234,15 @@ while(i<=10){
 		printf("x^%d = %Lf\n",x,Xm[x][j]);
 		x++;
 	}
+	
+	printf("\n y = ");
+		for(x=0;x<=j+2;x++) {
+			if(Xm[x][j]>= 0){
+				printf("+");
+			}
+		  	printf(" %lf*x^%d ",Xm[x][j],x);
+		 }
+	printf("\n");	
 		
 	return 1;
 }
