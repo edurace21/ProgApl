@@ -1,4 +1,4 @@
-//METODO DE LAGRANGE
+//METODO DE INTERPOLACION DE LAGRANGE
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -20,7 +20,7 @@ int main(void){
 	int L = 0;
 	
 	// para leer los datos del .csv
-	FILE * fp = fopen("data1.csv","r");
+	FILE * fp = fopen("data1e.csv","r");
 	
 	if(!fp){ //si no abre el archivo.
 		printf("\n ERROR! \n\n No se puede abrir el archivo. \n");
@@ -50,6 +50,12 @@ int main(void){
 		} 
 		y++;
 		if(y == 2){
+			
+			if(matrix1[x][0]<9.023 || matrix1[x][0]>9.027 || matrix1[x][1]<79.530 || matrix1[x][1]>79.535){
+			matrix1[x][0] = matrix1[x-1][0];
+			matrix1[x][1] = matrix1[x-1][1];
+			}
+			
 			x++;
 			y = 0;
 		}
@@ -69,7 +75,7 @@ int main(void){
 		}	
 	}
 	
-	//NORMALIZACION DE DATOS
+	//ZOOM DE DATOS
 	x = y = 0 ;
 	float z1[2] = {9.02,79.53};
 	float z2[2] = {0.000542,0.000221};
@@ -85,7 +91,7 @@ int main(void){
 	}
 	
 	
-while(L<n){
+while(L<n/2){
 	
 /*	//COMBINACIONES
 	float comb;
@@ -124,10 +130,10 @@ while(L<n){
 		
 		if(y<dL){
 		vmatrix[x][y] = pow(matrix2[x][0],dL-1-y);
-		printf("[%d][%d] = %lf | ",x,y,vmatrix[x][y]);
+//		printf("[%d][%d] = %lf | ",x,y,vmatrix[x][y]);
 		} else if(y == dL){
 			vmatrix[x][y] = matrix2[x][1];
-			printf("[%d][%d] = %lf\n",x,y,vmatrix[x][y]);
+//			printf("[%d][%d] = %lf\n",x,y,vmatrix[x][y]);
 		}
 		y++;
 		if(y==dL+1){
@@ -173,6 +179,15 @@ while(L<n){
 		  	printf("x[%d] = %lf\n",dL-1-i, xi[i]);
 		  	Xm[i][L] = xi[i];
 		 }
+		 
+		printf("\n y = ");
+		for(x=0;x<dL;x++) {
+			if(xi[x]>= 0){
+				printf("+");
+			}
+		  	printf(" %lf*x^%d ",xi[x],dL-1-x);
+		 }
+	printf("\n");
 	
 	//DETERMINAR EL ERROR
 	x = y = 0;
@@ -182,7 +197,7 @@ while(L<n){
 		ye[y] = ye[y] + (pow(matrix1[y][0],dL-1-x)*xi[x]);
 		x++;
 		if(x ==dL){
-			printf("\n x = %lf | y = %lf |ye[%d] = %lf",matrix1[y][0],matrix1[y][1],y,ye[y]);
+//			printf("\n x = %lf | y = %lf |ye[%d] = %lf",matrix1[y][0],matrix1[y][1],y,ye[y]);
 			y++;
 			x = 0;
 		}
@@ -199,7 +214,7 @@ while(L<n){
 	
 //	double Es;
 	printf("\n");
-	for(x=0;x<n;x++){	//determinar el error estandar Es
+	for(x=0;x<n/2;x++){	//determinar el error estandar Es
 		Es[L] = Es[L] + pow(ds[x],2);
 	}
 	Es[L] = sqrt(Es[L]/(n-1));
@@ -211,14 +226,14 @@ while(L<n){
 }
 
 	printf("\n Errores Estandar: \n");
-	for(x=0;x<n;x++){
+	for(x=0;x<n/2;x++){
 		printf("\nINTENTO %d = %Lf",x,Es[x]);
 	}	
 
 	//DETERMINAR EL MODELO MAS PRECISO
 	x = y = 0;
 	double menor;
-	for(x=0;x<n;x++){
+	for(x=0;x<n/2;x++){
 		if(Es[x]<menor || x ==0){
 			menor = Es[x];
 			j = x;
@@ -230,7 +245,17 @@ while(L<n){
 	while(x<=dL-1){
 		printf("x^%d = %Lf\n",dL-1-x,Xm[x][j]);
 		x++;
-	}	 
+	}	
+	
+	printf("\n y = ");
+		for(x=0;x<dL;x++) {
+			if(Xm[x][j]>= 0){
+				printf("+");
+			}
+		  	printf(" %lf*x^%d ",Xm[x][j],dL-1-x);
+		 }
+	printf("\n");
+	 
 	fclose(fp);
 	system("pause");
 	return 0;	
