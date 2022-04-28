@@ -43,6 +43,12 @@ while(i<=10){
 		} 
 		y++;
 		if(y == 2){
+			
+			if(matrix1[x][0]<9.023 || matrix1[x][0]>9.027 || matrix1[x][1]<79.530 || matrix1[x][1]>79.535){
+			matrix1[x][0] = matrix1[x-1][0];
+			matrix1[x][1] = matrix1[x-1][1];
+			}
+			
 			x++;
 			y = 0;
 		}
@@ -160,7 +166,16 @@ while(i<=10){
 		 for(x=0;x<m+1;x++) {
 		  	printf("x[%d] = %Lf\n",x, xi[x][j]);
 		  	Xm[x][j] = xi[x][j];
-		 } 
+		 }
+	
+		printf("\n y = ");
+		for(x=0;x<dL;x++) {
+			if(xi[x]>= 0){
+				printf("+");
+			}
+		  	printf(" %lf*x^%d ",xi[x],dL-1-x);
+		 }
+		printf("\n");
 
 	//DETERMINAR EL ERROR
 	x = y = 0;
